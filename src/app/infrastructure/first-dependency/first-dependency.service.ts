@@ -4,7 +4,7 @@ import { Injectable } from "@angular/core";
   providedIn: "root"
 })
 export class FirstDependencyService {
-  defaultValue: string;
+  defaultValue: string = '';
 
   get defaultString(): string {
     return this.defaultValue;
