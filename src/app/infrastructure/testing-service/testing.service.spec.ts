@@ -65,4 +65,10 @@ describe('TestingService', () => {
     const getValue = service.getValue(1);
     expect(getValue).toBe("two");
   });
+
+  it('getIndex: should return value', () => {
+    spyOn(service, 'getIndex').and.returnValue(1);
+    const result = service.getValue(service.getIndex());
+    expect(result).toBe('two');
+  });
 });
