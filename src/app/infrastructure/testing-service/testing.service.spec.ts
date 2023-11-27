@@ -5,6 +5,7 @@ import {FirstDependencyService} from "../first-dependency/first-dependency.servi
 describe('TestingService', () => {
   let service: TestingService;
   let firstDependency: FirstDependencyService;
+  let firstDependencyReturnValueSpy: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -15,6 +16,7 @@ describe('TestingService', () => {
 
     service = TestBed.inject(TestingService);
     firstDependency = TestBed.inject(FirstDependencyService);
+    firstDependencyReturnValueSpy = spyOn(firstDependency, "returnValue");
   });
 
   it("should creat", () => {
@@ -23,6 +25,7 @@ describe('TestingService', () => {
 
 
   it("getValue: should get value by index - вызов ориг-го метод", () => {
+    firstDependencyReturnValueSpy.and.returnValue('two');
     const getValue = service.getValue(1);
     expect(getValue).toBe("two");
   });
@@ -34,7 +37,7 @@ describe('TestingService', () => {
     // с фейк вызовами методов вместо оригинальных вызовов
 
     // установили шпиона и разрешили вызов ориг функции
-    spyOn(firstDependency, "returnValue").and.callThrough();
+    firstDependencyReturnValueSpy.and.callThrough();
 
     const getValue = service.getValue(1);
     expect(getValue).toBe("two");
@@ -47,7 +50,7 @@ describe('TestingService', () => {
     // с фейк вызовами методов вместо оригинальных вызовов
 
     // установили шпиона и вызвали фейк функцию = возвращаем метод
-    spyOn(firstDependency, "returnValue").and.callFake(() => 'two');
+    firstDependencyReturnValueSpy.and.callFake(() => 'two');
 
     const getValue = service.getValue(1);
     expect(getValue).toBe("two");
@@ -60,13 +63,14 @@ describe('TestingService', () => {
     // с фейк вызовами методов вместо оригинальных вызовов
 
     // шпион возвращает только ожидаемое значение
-    spyOn(firstDependency, "returnValue").and.returnValue('two');
+    firstDependencyReturnValueSpy.and.returnValue('two');
 
     const getValue = service.getValue(1);
     expect(getValue).toBe("two");
   });
 
   it('getIndex: should return value', () => {
+    firstDependencyReturnValueSpy.and.returnValue('two');
     spyOn(service, 'getIndex').and.returnValue(1);
     const result = service.getValue(service.getIndex());
     expect(result).toBe('two');
