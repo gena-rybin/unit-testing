@@ -19,6 +19,8 @@ describe('TestingService', () => {
     firstDependencyReturnValueSpy = spyOn(firstDependency, "returnValue");
   });
 
+  // используем экземпляр класса, с МОКАМИ МЕтОДОВ!
+
   it("should creat", () => {
     expect(service).toBeTruthy();
   });
