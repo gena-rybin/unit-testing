@@ -22,6 +22,18 @@ describe('TestingService', () => {
   });
 
   it("getValue: should get value by index", () => {
+    // Устанавливаем шпионов - фейк зависимости
+    // с фейк вызовами методов вместо оригинальных вызовов
+
+    // установили шпиона и разрешили вызов ориг функции
+    // spyOn(firstDependency, "returnValue").and.callThrough();
+
+    // установили шпиона и вызвали фейк функцию = возвращаем метод
+    // spyOn(firstDependency, "returnValue").and.callFake(() => 'two');
+
+    // шпион возвращает только ожидаемое значение
+    spyOn(firstDependency, "returnValue").and.returnValue('two');
+
     const getValue = service.getValue(1);
     expect(getValue).toBe("two");
   });
