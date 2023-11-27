@@ -5,11 +5,17 @@ import {FirstDependencyService} from "../first-dependency/first-dependency.servi
 describe('TestingService', () => {
   let service: TestingService;
   let firstDependency: FirstDependencyService;
+  const fakeFirstDependencyService = {
+    returnValue: jasmine.createSpy('returnValue').and.returnValue("three"),
+    initValue: jasmine.createSpy('initValue'),
+    initValue2: jasmine.createSpy('initValue2'),
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
         TestingService,
+        {provide: FirstDependencyService, useValue: fakeFirstDependencyService}
       ],
     });
 
