@@ -31,4 +31,10 @@ describe('TestingService v.3', () => {
     const result = service.getValue(service.getIndex());
     expect(result).toBe('two');
   });
+
+  it('sayHi: должен срабатывать - проверка вызова', () => {
+    fakeFirstDependencyService.initValue2.calls.reset();
+    service.sayHi('');
+    expect(fakeFirstDependencyService.initValue2).toHaveBeenCalledTimes(1);
+  });
 });
